@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人相册</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <div class="header-text">
+                <h1>📸 吴勇勋的个人相册</h1>
+                <p>记录碎片时光</p>
+            </div>
+            <button id="themeBtn">切换深色模式</button>
+        </header>
+
+        <main class="gallery" id="galleryWrap">
+            <!-- JS渲染图片卡片 -->
+        </main>
+    </div>
+
+    <!-- 大图预览弹窗 -->
+    <div class="overlay" id="overlay">
+        <div class="preview-box">
+            <span class="close-btn" id="closeBtn">×</span>
+            <img id="previewImg" src="" alt="大图预览">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
