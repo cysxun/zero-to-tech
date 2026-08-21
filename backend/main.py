@@ -5,9 +5,12 @@ from pypinyin import lazy_pinyin, Style
 from snownlp import SnowNLP
 
 app = FastAPI()
+# 开发环境放开跨源：允许 localhost:3000 / 127.0.0.1:3000 / 80 端口等
+# 任意来源访问（浏览器跨源请求都能拿到响应）。
+# 上线时再收紧为具体域名，如 ["https://yourdomain.com"]。
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],
     allow_methods=["GET", "POST"],
 )
 
@@ -45,7 +48,9 @@ def score_label(score):
 
 @app.post("/api/analyze")
 def analyze(req: AnalyzeRequest):
-    text = req.text
+    text = req.text.strip()
+    if not text:
+        return {"text": "", "score": 0.5, "label": "中性", "pinyin": ""}
     score = round(SnowNLP(text).sentiments, 2)  
 
     return {

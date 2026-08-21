@@ -6,6 +6,7 @@
 // 注意：导航条 Nav 不在这儿，它在每一页的 hero 里（HomeView / TextLabView 各放一份），
 // 这样整页布局和 4.4 完全一致。
 
+import DifyChatbot from "../components/DifyChatbot.jsx";
 import "../css/reset.css";
 import "../css/variables.css";
 import "../css/layout.css";
@@ -29,6 +30,9 @@ export default function RootLayout({ children }) {
             <main className="page-content">{children}</main>
           </div>
         </div>
+
+        {/* Dify 聊天机器人：全站全局嵌入（逻辑在 components/DifyChatbot.jsx） */}
+        <DifyChatbot />
       </body>
     </html>
   );
