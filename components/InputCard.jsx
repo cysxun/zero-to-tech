@@ -5,7 +5,11 @@
 // 请求出问题时用 try/catch 接住，在按钮上方给一行提示，不让界面无声失效。
 // 后端地址暂时写死在下面，跟着课件，这一节最后会把它收进 .env.local。
 import { useState } from "react";
-const API = process.env.NEXT_PUBLIC_API_BASE_URL;
+// 后端地址走环境变量（见 .env.example）：
+//   - 本地开发：NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+//   - 上线：留空或不设 → 请求走相对路径 /api/...（同源），由 nginx 反代到后端
+// 千万别在代码里写死 localhost——用户浏览器里的 localhost 指向访问者自己的电脑。
+const API = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 
 export default function InputCard({ onResult }) {
   const [text, setText] = useState("今天的风很轻，适合把脑海里的想法慢慢写下来。");
