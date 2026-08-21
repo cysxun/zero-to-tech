@@ -3,16 +3,21 @@
 //   1) 先同步设置 window.difyChatbotConfig
 //   2) 再动态加载 embed.min.js（此时配置已就绪，embed 执行时一定能读到）
 //   3) 注入气泡按钮 / 窗口的自定义样式
-// 注意：baseUrl 必须指向 Dify 服务真实地址。
-// 本机 Docker 部署的 Dify 是 http://localhost:8088（映射自容器 80 端口）。
-// 上线时改成你的 Dify 域名，如 https://dify.yourdomain.com。
+// 注意：baseUrl 必须指向"公网用户浏览器能访问到"的 Dify 地址。
+//   - 线上：http://uk.frp.one:48608（网站同源，nginx 反代到 Dify 8088）
+//   - 本地开发：.env.local 里设 NEXT_PUBLIC_DIFY_BASE_URL=http://localhost:8088
+// 千万别写 localhost——用户浏览器里的 localhost 指向访问者自己的电脑。
 
 "use client";
 
 import { useEffect } from "react";
 
 const DIFY_TOKEN = "yP0dzwevMBWyqrUY";
-const DIFY_BASE_URL = "http://localhost:8088"; // ← 上线时改成 Dify 真实地址
+// 默认 = 网站自己的公网地址（同源，由 server 的 nginx 把 /embed.min.js、
+// /chatbot/、/api/ 等路径反代到 127.0.0.1:8088）。
+// 本地开发时通过 .env.local 里的 NEXT_PUBLIC_DIFY_BASE_URL 覆盖。
+const DIFY_BASE_URL =
+  process.env.NEXT_PUBLIC_DIFY_BASE_URL || "http://uk.frp.one:48608";
 
 export default function DifyChatbot() {
   useEffect(() => {
